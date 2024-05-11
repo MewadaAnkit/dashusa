@@ -176,7 +176,7 @@ router.get('/api/v2/Calender', async (req, res) => {
 
 
 
-router.get('/api/v2/Calender/:eventId', limiter, async (req, res) => {
+router.get('/api/v2/Calender/:eventId',  async (req, res) => {
   try {
     const eventId = req.params.eventId;
     console.log('event', eventId)
