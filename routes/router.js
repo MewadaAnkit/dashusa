@@ -60,7 +60,7 @@ router.post('/api/v2/addEventCalender', limiter, async (req, res) => {
 //EVENT DELETE API ENDPOINT
 
 
-router.delete('/api/v2/calender/:id',async (req,res)=>{
+router.delete('/api/calender/:id', limiter , async (req,res)=>{
   try {
     const id = req.params.id;
     const deleteHotel = await Event.findByIdAndDelete(id);
@@ -80,7 +80,7 @@ router.delete('/api/v2/calender/:id',async (req,res)=>{
 
 
 
-router.get('/Calender', limiter, async (req, res) => {
+router.get('/Calender', async (req, res) => {
 
 
   try {
@@ -333,7 +333,7 @@ router.post('/api/v2/contactform', limiter, async (req, res) => {
 
 
 
-router.get('/contact', limiter, async (req, res) => {
+router.get('/contact' , async (req, res) => {
 
 
   try {
@@ -371,7 +371,7 @@ router.get('/contact', limiter, async (req, res) => {
 
 
 
-router.post('/api/v2/formdata', async (req, res) => {
+router.post('/api/v2/formdata', limiter, async (req, res) => {
 
   // const {   fullname , email ,  dob ,  age , gender , Program , Phone , address , formData } = req.body;
   // console.log(  fullname , email ,  dob , age , gender , Program, address , formData,  "body")
