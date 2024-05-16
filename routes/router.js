@@ -57,6 +57,18 @@ router.post('/api/v2/addEventCalender', limiter, async (req, res) => {
 
 
 
+//EVENT DELETE API ENDPOINT
+
+
+router.delete('/api/v2/calender/:id',async (req,res)=>{
+  try {
+    const id = req.params.id;
+    const deleteHotel = await Event.findByIdAndDelete(id);
+    res.status(200).json("Deleted Successfully");
+} catch (err) {
+    res.status(400).json(err)
+}
+})
 
 
 
@@ -393,6 +405,22 @@ router.post('/api/v2/formdata', async (req, res) => {
   }
 })
 
+
+
+router.get('/formdata', async (req, res) => {
+
+
+  try {
+
+    const formData = await Register.find();
+    res.status(200).json(formData);
+    //console.log('chali api to ')
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json("Internal Server Error ")
+  }
+})
 
 
 module.exports = router
