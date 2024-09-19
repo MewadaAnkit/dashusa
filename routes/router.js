@@ -353,6 +353,16 @@ router.get('/contact' , async (req, res) => {
 
 
 
+router.delete('/api/contact/:id',async (req,res)=>{
+  try {
+    const id = req.params.id;
+    const deleteHotel = await contact.findByIdAndDelete(id);
+    res.status(200).json("Deleted Successfully");
+} catch (err) {
+    res.status(400).json(err)
+}
+})
+
 
 
 
