@@ -19,12 +19,12 @@ const limiter = rateLimit({
 
 
 
-router.post('/api/register', limiter, auth.register);
-router.post('/api/login', limiter, auth.login)
+router.post('/api/register', auth.register);
+router.post('/api/login', auth.login)
 
 
 
-router.post('/api/v2/addEventCalender', limiter, async (req, res) => {
+router.post('/api/v2/addEventCalender', async (req, res) => {
 
   //const { eventName, eventDate, Timing, Cost, Category, EventDesc } = req.body;
   try {
