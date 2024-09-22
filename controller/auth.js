@@ -21,7 +21,7 @@ const auth = {
 
       }
    },
-   async login(req, res, next) {
+ async login(req, res, next) {
       try {
          const user = await User.findOne({ email: req.body.email })
 
