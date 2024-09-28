@@ -10,6 +10,10 @@ const Register = require('../model/Registration');
 const cache = new NodeCache();
 
 
+const User = require('../model/User');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer')
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000,
@@ -20,8 +24,33 @@ const limiter = rateLimit({
 
 
 router.post('/api/register', auth.register);
-router.post('/api/login', auth.login)
 
+router.post('/api/login', limiter,  async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email })
+
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid username or password' });
+    }
+
+    const ispasswd = await bcrypt.compare(req.body.password, user.password);
+    if (!ispasswd) {
+      return res.status(401).json({ message: 'Invalid username or password' });
+    }
+
+
+    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET)
+
+    //console.log('login success')
+    res.cookie("access-token", token, {
+      httpOnly: true,
+    }).status(200).json(user)
+
+  } catch (err) {
+    res.status(400).json("Some error occured");
+    console.log(err)
+  }
+})
 
 
 router.post('/api/v2/addEventCalender', async (req, res) => {
