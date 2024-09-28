@@ -82,6 +82,56 @@ router.post('/api/v2/addEventCalender', async (req, res) => {
 
 
 
+router.get('/users', async (req, res) => {
+  try {
+   
+    const users = await User.find();
+
+    if (!users) {
+      return res.status(404).json({ message: "Users not found" });
+    }
+
+    res.status(200).json({ users , message: "Users retrieved successfully" });
+    //onsole.log('API called successfully');
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+
+
+router.delete('/api/users/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deleteHotel = await User.findByIdAndDelete(id);
+    res.status(200).json("Deleted Successfully");
+  } catch (err) {
+    res.status(400).json(err)
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
