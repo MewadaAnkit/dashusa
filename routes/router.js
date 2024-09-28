@@ -25,7 +25,7 @@ const limiter = rateLimit({
 
 router.post('/api/register', auth.register);
 
-router.post('/api/login', limiter,  async (req, res) => {
+router.post('/api/login', async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email })
 
