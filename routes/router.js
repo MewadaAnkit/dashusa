@@ -91,7 +91,7 @@ router.get('/users', async (req, res) => {
       return res.status(404).json({ message: "Users not found" });
     }
 
-    res.status(200).json({ users , message: "Users retrieved successfully" });
+    res.status(200).json( users );
     //onsole.log('API called successfully');
   } catch (error) {
     console.log(error);
