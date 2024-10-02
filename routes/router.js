@@ -25,16 +25,12 @@ const limiter = rateLimit({
 
 router.post('/api/register', auth.register);
 
-router.post('/api/login', async (req, res) => {
+
+router.post('/api/login', limiter,  async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email })
+    const user = await User.findOne({ email: req.body.email , password:req.body.password})
 
     if (!user) {
-      return res.status(401).json({ message: 'Invalid username or password' });
-    }
-
-    const ispasswd = await bcrypt.compare(req.body.password, user.password);
-    if (!ispasswd) {
       return res.status(401).json({ message: 'Invalid username or password' });
     }
 
